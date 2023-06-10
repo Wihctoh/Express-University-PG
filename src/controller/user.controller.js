@@ -1,4 +1,5 @@
 const express = require("express");
+const buildResponse = require("../helper/buildResponse");
 const {
   getAllUsersInfo,
   createAllUsersInfo,
@@ -9,9 +10,9 @@ router.get("/", async (req, res) => {
   try {
     const data = await getAllUsersInfo();
 
-    res.status(200).send(data);
+    buildResponse(send, 200, data);
   } catch (error) {
-    res.status(404).send(error.message);
+    buildResponse(send, 404, error.message);
   }
 });
 
@@ -20,9 +21,9 @@ router.post("/", async (req, res) => {
     const { birth, city, age, name, surname } = req.body;
     const data = await createAllUsersInfo(birth, city, age, name, surname);
 
-    res.status(200).send(data);
+    buildResponse(send, 200, data);
   } catch (error) {
-    res.status(405).send(error.message);
+    buildResponse(send, 404, error.message);
   }
 });
 
